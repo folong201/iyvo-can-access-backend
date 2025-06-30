@@ -1,10 +1,14 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
+import { useState } from 'react'
 import './App.css'
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const [backendUrl, setBackendUrl] = useState(import.meta.env.VITE_BACKEND_URL || 'https://0d24kmb4-8000.use.devtunnels.ms/')
+  const [inputUrl, setInputUrl] = useState(backendUrl)
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setBackendUrl(inputUrl)
+  }
 
   return (
     <>
@@ -12,9 +16,21 @@ function App() {
       <div>
         <center>The website</center>
       </div>
+      <form onSubmit={handleSubmit} style={{ marginTop: '2rem', textAlign: 'center' }}>
+        <input
+          type="text"
+          value={inputUrl}
+          onChange={e => setInputUrl(e.target.value)}
+          placeholder="Enter backend URL"
+          style={{ width: '60%', padding: '0.5rem' }}
+        />
+        <button type="submit" style={{ marginLeft: '1rem', padding: '0.5rem 1rem' }}>
+          Submit
+        </button>
+      </form>
       <div style={{ marginTop: '2rem' }}>
         <iframe
-          src={import.meta.env.VITE_BACKEND_URL || 'https://0d24kmb4-8000.use.devtunnels.ms/'}
+          src={backendUrl}
           title="External Website"
           width="100%"
           height="500"
